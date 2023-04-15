@@ -1,39 +1,52 @@
+package Tests;
 import java.net.URI;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Response; 
 
-import model.User;
-
 import org.glassfish.jersey.client.ClientConfig;
 
-//import com.sun.research.ws.wadl.Response;
 
-import model.User;
-import model.message;
 
+import models.facebook.*;
 
 public class Test {
-
+	
 	public static void main(String[] args) {
+		
+		
+		
 		ClientConfig config = new ClientConfig();
 		Client client = ClientBuilder.newClient(config);
 		WebTarget target = client.target(getBaseURI());
 		
-		/*
+		/*INDEX RES:
+		 * 
 		 * RES1 = COMPROBAR USUARIOS
 		 * RES2 = AÑADIR USUARIO
-		 * RES3 = COMPROBAR UN USUARIO
-		 * RES4 = BORRAR USUSARIO 
-		 * RES5 = AÑADIR POST
+		 * RES3 = COMPROBAR AÑADIR USUARIO UN USUARIO
+		 * RES4 = COMPROBAR DATOS DE UN USUARIO
+		 * RES5 = MODIFICAR DATOS DE UN USARIO
+		 * RES6 = BORRAR USUARIO
+		 * RES7 = COMPROBACION BORRADO DE USUARIO
+		 * RES8 = AÑADIR POST
+		 * RES9 = INBOX DE UN USAURIO
+		 * RES10 = BORRAR MENSAJE
+		 * RES11 = MODIFICAR MENSAJE
+		 * RES12 = COMPRPBACION MODIFICACION
+		 * RES13 = AÑADIR UN AMIGO
+		 * RES14 = LISTA DE AMIGOS
+		 * RES15 = BORRAR AMIGOS 
 		 *  
 		 * */
 		
 		/*CREACION DE USUARIOS PARA PRUEBAS USUARIO*/
+		
 		
 		User u1 = new User("Pepe");
 		User u2 = new User("Emil");
@@ -48,10 +61,11 @@ public class Test {
 		
 		System.out.println("PruebaListaVaciaInicial: " + res1 + '\n');
 		
+		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
-		/* PRUEBA ALADIR USUSARIOS COMPROBAR CON EL NUEVO RODRI*/
-		
+		/* PRUEBA AÑADIR USUSARIOS COMPROBAR CON EL NUEVO RODRI */
+		System.out.println("STATUS CRACIÓN DE USUARIO: \n"  );
 		Response res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u1),Response.class);
 		System.out.println("STATUS U1 = " + res2.getStatus());
 		
@@ -68,118 +82,139 @@ public class Test {
 		
 		/*PRUEBA CONSEGUIR TODOS LOS USERS AÑADIDOS*/
 		
-		res1 =target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+		String res3 =target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaAñadirUsuarios: " + res1 + '\n');
+		System.out.println("PruebaAñadirUsuarios: " + res3 + '\n');
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 		/*PRUEBA PARA COMPROBAR LOS DATOS DE UN SOLO USUARIO*/
 		
-		String res3 = target.path("api").path("users").path("2").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+		String res4 = target.path("api").path("users").path("3").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaInfoUsuario: " + res3 + '\n');
+		System.out.println("PruebaInfoUsuario: " + res4 + '\n');
+		
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 		/*PRUEBA PARA MODIFICAR LOS DATOS DE UN USUARIO*/
 		
-		User uCambio = new User("Jose");
+		User uCambio = new User("gABACHA");
 		
-		Response res8 = target.path("api").path("users").path("1").request().accept(MediaType.APPLICATION_JSON).put(Entity.json(uCambio),Response.class);
-		System.out.println(res8.getStatus() + "\n");
+		Response res5 = target.path("api").path("users").path("2").request().accept(MediaType.APPLICATION_JSON).put(Entity.json(uCambio),Response.class);
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
-		/* PRUEBA DE DELETE DE UN USUSARIO*/ 
+		/* PRUEBA DE DELETE DE UN USUSARIO */
 		
-		Response res4 =  target.path("api").path("users").path("1").request().delete();
-		System.out.println(res4.getStatus());
+		Response res6 =  target.path("api").path("users").path("3").request().delete();
+		System.out.println("STATUS DELETE: " + res6.getStatus() + "\n");
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 		/*COMPROBACION SI SE HA BORRADO EL USUARIO*/
 		
-		 res1 =target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+		String res7 =target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaBorrarUsuario: " + res1 + '\n');
+		System.out.println("PruebaBorrarUsuario: " + res7 + '\n');
 		
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 		/*MENSAJES PAR A LA PRUEBA DE USUARIOS*/
 		
-		message m1 = new message(1,2,"y Je m'appelle");
-		message m2 = new message(2,3,"Inshalla");
-		message m3 = new message(2,1,"no hablo frances");
-		message m4 = new message(1,2,"y Je m'appelle Barbara");
+		Message m1 = new Message(1,2,"y Je m'appelle");
+		Message m2 = new Message(2,3,"Inshalla");
+		Message m3 = new Message(2,1,"no hablo frances");
+		Message m4 = new Message(1,2,"y Je m'appelle Barbara");
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 		/*PRUEBA AÑADIR UN POST EN PAGINA PRINCIPAL*/
+		System.out.println("STATUS CRACIÓN DE USUARIO: \n" );
+		Response res8 = target.path("api").path("users").path("1").path("2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m1),Response.class);
+		System.out.println("STATUS M1=" + res8.getStatus());
 		
-		Response res5 = target.path("api").path("users").path("1").path("2").request().post(Entity.json(m1),Response.class);
-		System.out.println("STATUS M1=" + res5.getStatus());
+		res8 =  target.path("api").path("users").path("2").path("3").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m2),Response.class);
+		System.out.println("STATUS M2=" + res8.getStatus());
 		
-		res5 =  target.path("api").path("users").path("2").path("3").request().post(Entity.json(m2),Response.class);
-		System.out.println("STATUS M2=" + res5.getStatus());
+		res8 =  target.path("api").path("users").path("2").path("1").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m3),Response.class);
+		System.out.println("STATUS M3=" + res8.getStatus());
 		
-		res5 =  target.path("api").path("users").path("2").path("1").request().post(Entity.json(m3),Response.class);
-		System.out.println("STATUS M3=" + res5.getStatus());
+		res5 =  target.path("api").path("users").path("1").path("2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m4),Response.class);
+		System.out.println("STATUS M4=" + res8.getStatus() + "\n");
 		
-		res5 =  target.path("api").path("users").path("1").path("2").request().post(Entity.json(m4),Response.class);
-		System.out.println("STATUS M4=" + res5.getStatus());
-		
-		System.out.println(res5.getStatus());
+
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 		/*PRUEBA TODOS LOS MENSAJES EN LA PAGINA DEL USUARIO*/
 		
-		String res6 = target.path("api").path("users").path("2").path("pag_personal").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+		String res9 = target.path("api").path("users").path("2").path("inbox").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaMostrarMensajes: " + res6 + '\n');
+		System.out.println("PruebaMostrarMensajes: " + res9 + '\n');
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 		/*PRUEBA DELETE DE UN MENSAJE*/
 		
-		Response res7 = target.path("api").path("users").path("2").path("pag_personal").path("1").request().delete();
+		Response res10 = target.path("api").path("users").path("2").path("messages").path("2").request().delete();
 		
-		res6 = target.path("api").path("users").path("2").path("pag_personal").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+		res9 = target.path("api").path("users").path("3").path("inbox").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaBorrarMensajes: " + res6 + '\n');
+		System.out.println("PruebaBorrarMensajes: " + res9 + '\n');
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 		/*PRUEBA MODIFICACIÓN DE MENSAJES*/
 		
-		message mCambio = new message(1,2,"ups");
+		Message mCambio = new Message(1,2,"ups");
 		
-		res5 =  target.path("api").path("users").path("2").path("pag_personal").path("1").request().put(Entity.json(mCambio),Response.class);
+		Response res11 =  target.path("api").path("users").path("1").path("messages").path("1").request().put(Entity.json(mCambio),Response.class);
 		
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 		/*COMPROBACION PREUBA DE MODIFICACION*/
 		
-		res6 = target.path("api").path("users").path("2").path("pag_personal").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+		String res12 = target.path("api").path("users").path("2").path("inbox").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaModificaciónMensajes: " + res6 + '\n');
+		System.out.println("PruebaModificaciónMensajes: " + res12 + '\n');
 		 
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 
+		/*AÑADIR UN AMIGO*/
+		
+		Response res13 = target.path("api").path("users").path("1").path("friends").queryParam("friend", "4").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("2").path("friends").queryParam("friend", "4").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("3").path("friends").queryParam("friend", "1").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("1").path("friends").queryParam("friend", "2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+
 		
 		
 		
+		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+
+		/*LISTA AMIGOS*/
 		
+		String res14 = target.path("api").path("users").path("1").path("friends").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
+		System.out.println("PRUEBA AMIGOS: " + res14);
+		
+		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+
+		/*ELIMINAR AMIGOS AMIGOS*/
+		
+		Response res15 = target.path("api").path("users").path("2").path("friends").queryParam("friend", "4").request().delete();
+		System.out.println(res15);
+		
+		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+
+		/*ELIMINAR AMIGOS AMIGOS*/
 		
 	}
 	private static URI getBaseURI() {
-		return UriBuilder.fromUri("http://localhost:8080/facebook/api/").build();
+		return UriBuilder.fromUri("http://localhost:8080/facebook/").build();
 	}
 }
-
-
