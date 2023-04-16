@@ -74,14 +74,14 @@ public class Test {
 
 		String res1 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaListaVaciaInicial: " + res1 + '\n');
+		System.out.println("PRUEBA LISTA VACIA INICIAL: \n " + res1 + '\n');
 		
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 		/* PRUEBA AÑADIR USUSARIOS */
 		
-		System.out.println("STATUS CRACIÓN DE USUARIO: \n"  );
+		
 		Response res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u1),Response.class);
 		res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u2),Response.class);
 		res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u3),Response.class);
@@ -103,15 +103,15 @@ public class Test {
 		
 		String res3 =target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaAñadirUsuarios: " + res3 + '\n');
+		System.out.println("PRUEBA DE AÑADIR USUARIOS: " + res3 + '\n');
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 		/*PRUEBA CONSEGUIR TODOS LOS USERS AÑADIDOS CON FILTRO*/
 		
-		String res18=target.path("api").path("users").path("filter").queryParam("filtro", "A").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+		String res18=target.path("api").path("users").queryParam("filtro", "A").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaAñadirUsuarios: " + res18 + '\n');
+		System.out.println("PRUEBA VER USUARIOS FILTRO \"A\": \n " + res18 + '\n');
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
@@ -119,7 +119,7 @@ public class Test {
 		
 		String res4 = target.path("api").path("users").path("12").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaInfoUsuario: " + res4 + '\n');
+		System.out.println("PruebaInfoUsuario: \n" + res4 + '\n');
 		
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -135,7 +135,7 @@ public class Test {
 		/* PRUEBA DE DELETE DE UN USUSARIO */
 		
 		Response res6 =  target.path("api").path("users").path("3").request().delete();
-		System.out.println("STATUS DELETE: " + res6.getStatus() + "\n");
+		
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
@@ -143,7 +143,7 @@ public class Test {
 		
 		String res7 =target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaBorrarUsuario: " + res7 + '\n');
+		System.out.println("PRUEBA BORRAR USUARIO: \n" + res7 + '\n');
 		
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -171,7 +171,7 @@ public class Test {
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 		/*PRUEBA AÑADIR UN POST EN PAGINA PRINCIPAL*/
-		System.out.println("STATUS CRACIÓN DE USUARIO: \n" );
+	
 		Response res8 = target.path("api").path("users").path("1").path("2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m1),Response.class);	
 		res8 =  target.path("api").path("users").path("2").path("3").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m2),Response.class);		
 		res8 =  target.path("api").path("users").path("2").path("1").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m3),Response.class);
@@ -198,7 +198,7 @@ public class Test {
 		
 		String res9 = target.path("api").path("users").path("2").path("inbox").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaMostrarMensajes: " + res9 + '\n');
+		System.out.println("PRUEBA MOSTRAR MENSAJES DE USUARIO: \n" + res9 + '\n');
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
@@ -208,7 +208,7 @@ public class Test {
 		
 		res9 = target.path("api").path("users").path("3").path("inbox").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaBorrarMensajes: " + res9 + '\n');
+		System.out.println("PRUEBA DELETE DE MENSAJE \"2\" : \n" + res9 + '\n');
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
@@ -225,7 +225,7 @@ public class Test {
 		
 		String res12 = target.path("api").path("users").path("2").path("inbox").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PruebaModificaciónMensajes: " + res12 + '\n');
+		System.out.println("PRUEBA MODIFICACION MENSAJE ID = \"2\": \n " + res12 + '\n');
 		 
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -267,7 +267,7 @@ public class Test {
 		
 		String res14 = target.path("api").path("users").path("1").path("friends").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PRUEBA AMIGOS: " + res14 + "\n");
+		System.out.println("PRUEBA AMIGOS: \n" + res14 + "\n");
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -282,7 +282,7 @@ public class Test {
 		
 		String res16 = target.path("api").path("users").path("2").path("friends").path("messages").queryParam("nMessages", "10").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PRUEBA CONSEGUIR MENSAJES DE AMIGOS: "+ res16 + "\n");
+		System.out.println("PRUEBA CONSEGUIR MENSAJES DE AMIGOS: \n"+ res16 + "\n");
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -290,7 +290,7 @@ public class Test {
 		
 		String res17 = target.path("api").path("users").path("2").path("friends").path("messages").path("filter").queryParam("nMessages", "2").queryParam("filtro", "8").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PRUEBA CONSEGUIR MENSAJES DE AMIGOS: "+ res17 + "\n");
+		System.out.println("PRUEBA CONSEGUIR MENSAJES DE AMIGOS CON FILTRO DE CONTENIDO QUE CONTENA \"8\": \n"+ res17 + "\n");
 		
 		
 		
