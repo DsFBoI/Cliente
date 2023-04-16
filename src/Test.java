@@ -52,6 +52,14 @@ public class Test {
 		User u2 = new User("Emil");
 		User u3 = new User("Rodri");
 		User u4 = new User("Dani");
+		User u5 = new User("Paco");
+		User u6 = new User("Adolfo");
+		User u7 = new User("Hochi");
+		User u8 = new User("Benjamin");
+		User u9 = new User("Alejandro");
+		User u10 = new User("Ignacio");
+		User u11 = new User("Miki");
+		User u12 = new User("Guillelmo");
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
@@ -64,19 +72,23 @@ public class Test {
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
-		/* PRUEBA AÑADIR USUSARIOS COMPROBAR CON EL NUEVO RODRI */
+		/* PRUEBA AÑADIR USUSARIOS */
+		
 		System.out.println("STATUS CRACIÓN DE USUARIO: \n"  );
 		Response res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u1),Response.class);
-		System.out.println("STATUS U1 = " + res2.getStatus());
-		
 		res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u2),Response.class);
-		System.out.println("STATUS U2 = " + res2.getStatus());
-		
 		res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u3),Response.class);
-		System.out.println("STATUS U3 = " + res2.getStatus());
-		
 		res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
-		System.out.println("STATUS U4 = " + res2.getStatus());
+		res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u5),Response.class);
+		res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u6),Response.class);
+		res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u7),Response.class);
+		res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u8),Response.class);
+		res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u9),Response.class);
+		res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u10),Response.class);
+		res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u11),Response.class);
+		res2 = target.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u12),Response.class);
+
+
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
@@ -88,9 +100,17 @@ public class Test {
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
+		/*PRUEBA CONSEGUIR TODOS LOS USERS AÑADIDOS CON FILTRO*/
+		
+		String res18=target.path("api").path("users").path("filter").queryParam("filtro", "A").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+		
+		System.out.println("PruebaAñadirUsuarios: " + res18 + '\n');
+		
+		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+		
 		/*PRUEBA PARA COMPROBAR LOS DATOS DE UN SOLO USUARIO*/
 		
-		String res4 = target.path("api").path("users").path("3").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+		String res4 = target.path("api").path("users").path("12").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
 		System.out.println("PruebaInfoUsuario: " + res4 + '\n');
 		
@@ -99,7 +119,7 @@ public class Test {
 		
 		/*PRUEBA PARA MODIFICAR LOS DATOS DE UN USUARIO*/
 		
-		User uCambio = new User("gABACHA");
+		User uCambio = new User("Email");
 		
 		Response res5 = target.path("api").path("users").path("2").request().accept(MediaType.APPLICATION_JSON).put(Entity.json(uCambio),Response.class);
 		
@@ -123,26 +143,45 @@ public class Test {
 		
 		/*MENSAJES PAR A LA PRUEBA DE USUARIOS*/
 		
-		Message m1 = new Message(1,2,"y Je m'appelle");
-		Message m2 = new Message(2,3,"Inshalla");
-		Message m3 = new Message(2,1,"no hablo frances");
-		Message m4 = new Message(1,2,"y Je m'appelle Barbara");
+		Message m1 = new Message(1,2,"hola_1");
+		Message m2 = new Message(2,3,"hola_2");
+		Message m3 = new Message(3,4,"hola_3");
+		Message m4 = new Message(4,5,"hola_4");
+		Message m5 = new Message(8,6,"hola_5");
+		Message m6 = new Message(2,5,"hola_6");
+		Message m7 = new Message(1,11,"hola_7");
+		Message m8 = new Message(2,11,"hola_8");
+		Message m9 = new Message(11,10,"hola_9");
+		Message m10 = new Message(6,10,"hola_10");
+		Message m11 = new Message(7,9,"hola_11");
+		Message m12 = new Message(1,7,"hola_12");
+		Message m13 = new Message(9,11,"hola_13");
+		Message m14 = new Message(5,1,"hola_14");
+		Message m15 = new Message(10,4,"hola_15");
+		Message m16 = new Message(4,1,"hola_16");
+		Message m17 = new Message(2,10,"hola_16");
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 		/*PRUEBA AÑADIR UN POST EN PAGINA PRINCIPAL*/
 		System.out.println("STATUS CRACIÓN DE USUARIO: \n" );
-		Response res8 = target.path("api").path("users").path("1").path("2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m1),Response.class);
-		System.out.println("STATUS M1=" + res8.getStatus());
-		
-		res8 =  target.path("api").path("users").path("2").path("3").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m2),Response.class);
-		System.out.println("STATUS M2=" + res8.getStatus());
-		
+		Response res8 = target.path("api").path("users").path("1").path("2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m1),Response.class);	
+		res8 =  target.path("api").path("users").path("2").path("3").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m2),Response.class);		
 		res8 =  target.path("api").path("users").path("2").path("1").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m3),Response.class);
-		System.out.println("STATUS M3=" + res8.getStatus());
-		
-		res5 =  target.path("api").path("users").path("1").path("2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m4),Response.class);
-		System.out.println("STATUS M4=" + res8.getStatus() + "\n");
+		res8 =  target.path("api").path("users").path("10").path("4").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m4),Response.class);
+		res8 =  target.path("api").path("users").path("1").path("2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m5),Response.class);
+		res8 =  target.path("api").path("users").path("4").path("2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m6),Response.class);
+		res8 =  target.path("api").path("users").path("10").path("1").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m7),Response.class);
+		res8 =  target.path("api").path("users").path("9").path("2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m8),Response.class);
+		res8 =  target.path("api").path("users").path("8").path("3").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m9),Response.class);
+		res8 =  target.path("api").path("users").path("7").path("4").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m10),Response.class);
+		res8 =  target.path("api").path("users").path("6").path("5").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m11),Response.class);
+		res8 =  target.path("api").path("users").path("5").path("6").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m12),Response.class);
+		res8 =  target.path("api").path("users").path("4").path("7").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m13),Response.class);
+		res8 =  target.path("api").path("users").path("3").path("8").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m14),Response.class);
+		res8 =  target.path("api").path("users").path("2").path("9").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m15),Response.class);
+		res8 =  target.path("api").path("users").path("1").path("10").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m16),Response.class);
+		res8 =  target.path("api").path("users").path("10").path("2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(m17),Response.class);
 		
 
 		
@@ -187,10 +226,31 @@ public class Test {
 		/*AÑADIR UN AMIGO*/
 		
 		Response res13 = target.path("api").path("users").path("1").path("friends").queryParam("friend", "4").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
-		res13 = target.path("api").path("users").path("2").path("friends").queryParam("friend", "4").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
-		res13 = target.path("api").path("users").path("3").path("friends").queryParam("friend", "1").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
-		res13 = target.path("api").path("users").path("1").path("friends").queryParam("friend", "2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
-
+		res13 = target.path("api").path("users").path("2").path("friends").queryParam("friend", "11").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("3").path("friends").queryParam("friend", "10").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("1").path("friends").queryParam("friend", "9").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("1").path("friends").queryParam("friend", "8").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("2").path("friends").queryParam("friend", "7").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("3").path("friends").queryParam("friend", "6").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("4").path("friends").queryParam("friend", "7").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("5").path("friends").queryParam("friend", "6").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("6").path("friends").queryParam("friend", "5").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("7").path("friends").queryParam("friend", "4").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("8").path("friends").queryParam("friend", "3").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("9").path("friends").queryParam("friend", "2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("10").path("friends").queryParam("friend", "1").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("11").path("friends").queryParam("friend", "1").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("10").path("friends").queryParam("friend", "2").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("9").path("friends").queryParam("friend", "3").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("8").path("friends").queryParam("friend", "4").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("7").path("friends").queryParam("friend", "5").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("6").path("friends").queryParam("friend", "6").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("5").path("friends").queryParam("friend", "7").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("4").path("friends").queryParam("friend", "8").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("3").path("friends").queryParam("friend", "9").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("2").path("friends").queryParam("friend", "10").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		res13 = target.path("api").path("users").path("1").path("friends").queryParam("friend", "11").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(u4),Response.class);
+		
 		
 		
 		
@@ -211,7 +271,20 @@ public class Test {
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 
-		/*ELIMINAR AMIGOS AMIGOS*/
+		/*CONSEGUIR MENSAJES DE AMIGOS*/
+		
+		String res16 = target.path("api").path("users").path("2").path("friends").path("messages").queryParam("nMessages", "10").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+		
+		System.out.println("PRUEBA CONSEGUIR MENSAJES DE AMIGOS: "+ res16);
+		
+		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+
+		/*CONSEGUIR MENSAJES DE AMIGOS CON FILTRO*/
+		
+		String res17 = target.path("api").path("users").path("2").path("friends").path("messages").path("filter").queryParam("nMessages", "2").queryParam("filtro", "8").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+		
+		System.out.println("PRUEBA CONSEGUIR MENSAJES DE AMIGOS: "+ res17);
+		
 		
 	}
 	private static URI getBaseURI() {
