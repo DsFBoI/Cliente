@@ -1,5 +1,7 @@
 package Tests;
 import java.net.URI;
+import java.sql.Date;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -42,24 +44,29 @@ public class Test {
 		 * RES13 = AÑADIR UN AMIGO
 		 * RES14 = LISTA DE AMIGOS
 		 * RES15 = BORRAR AMIGOS 
-		 *  
+		 * RES16 = MENSAJES DE AMIGOS
+		 * RES17 = MENSAJES AMIGOS CON FILTROS
+		 * RES18 = USUARIOS CON FILTRO
+		 * RES19 = MODO APP
+		 * RES20 = AÑADIR EN PAGINA PRINCIPAL
+		 * 
 		 * */
 		
 		/*CREACION DE USUARIOS PARA PRUEBAS USUARIO*/
 		
 		
-		User u1 = new User("Pepe");
-		User u2 = new User("Emil");
-		User u3 = new User("Rodri");
-		User u4 = new User("Dani");
-		User u5 = new User("Paco");
-		User u6 = new User("Adolfo");
-		User u7 = new User("Hochi");
-		User u8 = new User("Benjamin");
-		User u9 = new User("Alejandro");
-		User u10 = new User("Ignacio");
-		User u11 = new User("Miki");
-		User u12 = new User("Guillelmo");
+		User u1 = new User("Pepe","pepe@gmail.com", "JosePepe");
+		User u2 = new User("Emil","email@gmail.com", "gabacha1");
+		User u3 = new User("Rodri","rodri@gmail.com", "gito333");
+		User u4 = new User("Dani","dani@gmail.com", "Elmejol");
+		User u5 = new User("Paco","paco@gmail.com", "paquito");
+		User u6 = new User("Adolfo","adolf@gmail.com", "not_h");
+		User u7 = new User("Esther","esther@gmail.com", "AmoLunde");
+		User u8 = new User("Benjamin","benjamin@gmail.com", "benji");
+		User u9 = new User("Alejandro","alejandro@gmail.com", "Perli");
+		User u10 = new User("Ignacio","asio@gmail.com", "ILoveAlmeria");
+		User u11 = new User("Miki","miguelluis@gmail.com", "MariquitaMala");
+		User u12 = new User("Guillelmo","guille@gmail.com", "Vigueras");
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
@@ -119,7 +126,7 @@ public class Test {
 		
 		/*PRUEBA PARA MODIFICAR LOS DATOS DE UN USUARIO*/
 		
-		User uCambio = new User("Email");
+		User uCambio = new User("Emilie", "email@gmail.com", "eemail");
 		
 		Response res5 = target.path("api").path("users").path("2").request().accept(MediaType.APPLICATION_JSON).put(Entity.json(uCambio),Response.class);
 		
@@ -143,23 +150,23 @@ public class Test {
 		
 		/*MENSAJES PAR A LA PRUEBA DE USUARIOS*/
 		
-		Message m1 = new Message(1,2,"hola_1");
-		Message m2 = new Message(2,3,"hola_2");
-		Message m3 = new Message(3,4,"hola_3");
-		Message m4 = new Message(4,5,"hola_4");
-		Message m5 = new Message(8,6,"hola_5");
-		Message m6 = new Message(2,5,"hola_6");
-		Message m7 = new Message(1,11,"hola_7");
-		Message m8 = new Message(2,11,"hola_8");
-		Message m9 = new Message(11,10,"hola_9");
-		Message m10 = new Message(6,10,"hola_10");
-		Message m11 = new Message(7,9,"hola_11");
-		Message m12 = new Message(1,7,"hola_12");
-		Message m13 = new Message(9,11,"hola_13");
-		Message m14 = new Message(5,1,"hola_14");
-		Message m15 = new Message(10,4,"hola_15");
-		Message m16 = new Message(4,1,"hola_16");
-		Message m17 = new Message(2,10,"hola_16");
+		Message m1 = new Message(1,2,"hola_1", Date.valueOf("2018-3-31"));
+		Message m2 = new Message(2,3,"hola_2", Date.valueOf("2019-3-31"));
+		Message m3 = new Message(3,4,"hola_3", Date.valueOf("2020-3-31"));
+		Message m4 = new Message(4,5,"hola_4", Date.valueOf("2018-2-31"));
+		Message m5 = new Message(8,6,"hola_5", Date.valueOf("2014-3-12"));
+		Message m6 = new Message(2,5,"hola_6", Date.valueOf("2012-5-10"));
+		Message m7 = new Message(1,11,"hola_7", Date.valueOf("2002-5-10"));
+		Message m8 = new Message(2,11,"hola_8", Date.valueOf("2002-8-1"));
+		Message m9 = new Message(11,10,"hola_9", Date.valueOf("2002-1-9"));
+		Message m10 = new Message(6,10,"hola_10", Date.valueOf("2002-3-19"));
+		Message m11 = new Message(7,9,"hola_11", Date.valueOf("2002-11-10"));
+		Message m12 = new Message(1,7,"hola_12", Date.valueOf("2002-4-2"));
+		Message m13 = new Message(9,11,"hola_13", Date.valueOf("2002-6-23"));
+		Message m14 = new Message(5,1,"hola_14", Date.valueOf("2002-9-8"));
+		Message m15 = new Message(10,4,"hola_15", Date.valueOf("2002-9-24"));
+		Message m16 = new Message(4,1,"hola_16", Date.valueOf("2001-7-20"));
+		Message m17 = new Message(2,10,"hola_16", Date.valueOf("2000-9-19"));
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 		
@@ -207,7 +214,7 @@ public class Test {
 		
 		/*PRUEBA MODIFICACIÓN DE MENSAJES*/
 		
-		Message mCambio = new Message(1,2,"ups");
+		Message mCambio = new Message(1,2,"ups", Date.valueOf("2018-3-31"));
 		
 		Response res11 =  target.path("api").path("users").path("1").path("messages").path("1").request().put(Entity.json(mCambio),Response.class);
 		
@@ -260,14 +267,14 @@ public class Test {
 		
 		String res14 = target.path("api").path("users").path("1").path("friends").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PRUEBA AMIGOS: " + res14);
+		System.out.println("PRUEBA AMIGOS: " + res14 + "\n");
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 
 		/*ELIMINAR AMIGOS AMIGOS*/
 		
 		Response res15 = target.path("api").path("users").path("2").path("friends").queryParam("friend", "4").request().delete();
-		System.out.println(res15);
+	
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -275,7 +282,7 @@ public class Test {
 		
 		String res16 = target.path("api").path("users").path("2").path("friends").path("messages").queryParam("nMessages", "10").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PRUEBA CONSEGUIR MENSAJES DE AMIGOS: "+ res16);
+		System.out.println("PRUEBA CONSEGUIR MENSAJES DE AMIGOS: "+ res16 + "\n");
 		
 		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -283,8 +290,35 @@ public class Test {
 		
 		String res17 = target.path("api").path("users").path("2").path("friends").path("messages").path("filter").queryParam("nMessages", "2").queryParam("filtro", "8").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 		
-		System.out.println("PRUEBA CONSEGUIR MENSAJES DE AMIGOS: "+ res17);
+		System.out.println("PRUEBA CONSEGUIR MENSAJES DE AMIGOS: "+ res17 + "\n");
 		
+		
+		
+		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+		
+		/*PRUEBA AÑADIR UN POST EN PAGINA PRINCIPAL*/
+		
+		Message mPagPrinc1 = new Message(1,0,"Ay amiga me encata mi pelo", Date.valueOf("2018-4-12"));
+		Message mPagPrinc2 = new Message(1,0,"Bon dia", Date.valueOf("2018-6-1"));
+		Message mPagPrinc3 = new Message(1,0,"Je m'appelle", Date.valueOf("2018-2-10"));
+		
+		Response res20 = target.path("api").path("users").path("2").path("messages").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(mPagPrinc1),Response.class);
+		res20 = target.path("api").path("users").path("2").path("messages").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(mPagPrinc2),Response.class);
+		res20 = target.path("api").path("users").path("2").path("messages").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(mPagPrinc3),Response.class);
+		
+		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+
+		/*MODO APP*/
+		
+		String res19 =  target.path("api").path("users").path("2").path("description").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+		System.out.println("PRUEBA FORMATO APLICACIÓN : " + res19 + "\n");
+		
+		/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+
+		/*MENSAJES pUBLICADOS POR UN USUARIO EN LA PAG PERSONAL*/
+		
+		String res21 = target.path("api").path("users").path("2").path("messages").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+		System.out.println("PRUEBA MENSAJES PAGINA PRINCIPAL: " + res21);
 		
 	}
 	private static URI getBaseURI() {
